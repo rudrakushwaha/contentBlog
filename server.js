@@ -119,8 +119,6 @@ app.post("/api/posts/:id", upload.fields([{ name: 'image', maxCount: 1 }, { name
     const imageFilename = req.files['image'] ? req.files['image'][0].filename : null;
     const videoFilename = req.files['media'] ? req.files['media'][0].filename : null;
 
-    // Extract filename from the uploaded file
-    // const filename = req.file.filename;
 
     // Include the filename in the request body
     const postData = {
@@ -129,7 +127,7 @@ app.post("/api/posts/:id", upload.fields([{ name: 'image', maxCount: 1 }, { name
       author: req.body.author,
       image: imageFilename,
       video: videoFilename
-      //  image: filename, // Include the filename
+     
     };
 
 
@@ -137,7 +135,7 @@ app.post("/api/posts/:id", upload.fields([{ name: 'image', maxCount: 1 }, { name
       `${API_URL}/posts/${req.params.id}`,
       postData
     );
-    // console.log(response.data);
+
     res.redirect("/");
   } catch (error) {
     res.status(500).json({ message: "Error updating post" });

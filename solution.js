@@ -1,8 +1,6 @@
-// import express from "express";
-// import bodyParser from "body-parser";
+
 const bodyParser = require("body-parser")
 const express = require("express")
-
 const mongoose = require('mongoose')
 
 const app = express();
@@ -15,6 +13,7 @@ const corsOptions ={
   optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions));
+
 const port = 4000;
 
 const dotenv = require("dotenv")   //requiring dotenv
@@ -44,22 +43,14 @@ app.get("/posts", (req, res) => {
   Note.find()
     .then(notes => {
       notes.forEach(async (note, index) => {
-        // console.log(note)
         await column1.push(note);
       });
-      // console.log('column1')
-      // console.log(column1);
       res.json(column1);
     })
-
-  // console.log(posts);rs
-  // res.json(posts);
 });
 
 // GET a specific post by id
 app.get("/posts/:id", (req, res) => {
-  // const post = posts.find((p) => p.id === parseInt(req.params.id));
-
   Note.findOne({ _id: mongoose.Types.ObjectId.createFromHexString(req.params.id) })
     .then(foundNote => {
       if (foundNote) {
@@ -76,9 +67,7 @@ app.get("/posts/:id", (req, res) => {
 
 // POST a new post
 app.post("/posts", async (req, res) => {
-  // const newId = lastId += 1;
-
-  // Extract filename from the request body
+  
   const imageFilename = req.body.image;
   const videoFilename = req.body.video;
   const note = new Note(
@@ -115,8 +104,7 @@ app.patch("/posts/:id", async (req, res) => {
     });
 
     column1.push(updatedNote);
-    // const updatedNote = await foundNote.save();
-
+  
     res.json(updatedNote);
   } catch (error) {
     console.log(error);
