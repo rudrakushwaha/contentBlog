@@ -38,6 +38,10 @@ app.use( express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//SETTING VIEWS ENGINE
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 const upload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
